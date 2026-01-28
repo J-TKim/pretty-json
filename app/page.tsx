@@ -1,11 +1,13 @@
 'use client';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 export default function Home() {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   const [indent, setIndent] = useState(2);
   const [error, setError] = useState('');
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const lineNumberRef = useRef<HTMLDivElement>(null);
 
   const prettify = () => {
     try {
@@ -27,18 +29,38 @@ export default function Home() {
     }
   };
 
+  const handleInputScroll = () => {
+    if (textareaRef.current && lineNumberRef.current) {
+      lineNumberRef.current.scrollTop = textareaRef.current.scrollTop;
+    }
+  };
+
+  const inputLines = input ? input.split('\n') : [''];
   const outputLines = output ? output.split('\n') : [];
 
   return (
     <main className="h-screen flex flex-col p-4">
       <h1 className="text-2xl font-bold mb-4">Pretty JSON</h1>
       <div className="flex gap-4 flex-1 min-h-0">
-        <textarea
-          className="flex-1 p-4 border rounded font-mono text-sm resize-none"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="Paste JSON here..."
-        />
+        <div className="flex-1 border rounded bg-slate-50 dark:bg-slate-900 overflow-hidden flex">
+          <div
+            ref={lineNumberRef}
+            className="py-4 pr-2 pl-3 text-right select-none bg-slate-100 dark:bg-slate-800 text-slate-400 border-r border-slate-200 dark:border-slate-700 overflow-hidden font-mono text-sm"
+          >
+            {inputLines.map((_, i) => (
+              <div key={i} className="leading-5">{i + 1}</div>
+            ))}
+          </div>
+          <textarea
+            ref={textareaRef}
+            className="flex-1 py-4 px-4 font-mono text-sm resize-none bg-transparent text-black dark:text-slate-100 outline-none leading-5"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onScroll={handleInputScroll}
+            placeholder="Paste JSON here..."
+            spellCheck={false}
+          />
+        </div>
         <div className="flex-1 border rounded bg-gray-50 dark:bg-gray-900 overflow-auto">
           <div className="flex font-mono text-sm min-h-full">
             {outputLines.length > 0 && (
