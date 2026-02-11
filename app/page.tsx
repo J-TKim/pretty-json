@@ -1,5 +1,6 @@
 'use client';
 import { useState, useRef, useMemo, useCallback, useEffect } from 'react';
+import AdBanner from './components/AdBanner';
 
 interface JsonPathEntry {
   path: string;
@@ -661,6 +662,7 @@ export default function Home() {
           </span>
         )}
       </div>
+      <AdBanner />
     </main>
   );
 }
