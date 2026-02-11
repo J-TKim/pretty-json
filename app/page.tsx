@@ -566,7 +566,8 @@ export default function Home() {
 
   return (
     <main className="h-screen flex flex-col p-4">
-      <h1 className="text-2xl font-bold mb-4">Pretty JSON</h1>
+      <h1 className="text-2xl font-bold mb-1">Pretty JSON <span className="text-base font-normal text-gray-500 dark:text-gray-400">— Online JSON Formatter & Viewer</span></h1>
+      <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">Paste your JSON to prettify, minify, or explore it interactively.</p>
       <div className="flex gap-4 flex-1 min-h-0">
         {/* Left: Input */}
         <div className="flex-1 border rounded bg-slate-50 dark:bg-slate-900 overflow-hidden flex">
@@ -661,6 +662,34 @@ export default function Home() {
           </span>
         )}
       </div>
+
+      {/* SEO content section */}
+      <section className="mt-8 border-t border-gray-200 dark:border-gray-700 pt-6 pb-2 text-sm text-gray-600 dark:text-gray-400 max-w-3xl">
+        <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">
+          Free Online JSON Formatter & Beautifier
+        </h2>
+        <p className="mb-3">
+          Pretty JSON is a free, fast, and privacy-friendly online JSON formatter.
+          Paste your raw JSON data and instantly prettify, minify, or explore its structure
+          with an interactive data explorer. All processing happens in your browser — no data
+          is sent to any server.
+        </p>
+        <h3 className="font-semibold text-gray-700 dark:text-gray-300 mb-2">Features</h3>
+        <ul className="list-disc list-inside mb-3 space-y-1">
+          <li>JSON prettifying with configurable indentation (2 spaces, 4 spaces, or tabs)</li>
+          <li>JSON minification for compact output</li>
+          <li>Interactive data explorer with path navigation</li>
+          <li>Line numbers and syntax highlighting</li>
+          <li>Filter and search through JSON keys</li>
+          <li>100% client-side — your data stays private</li>
+        </ul>
+        <h3 className="font-semibold text-gray-700 dark:text-gray-300 mb-2">How to Use</h3>
+        <ol className="list-decimal list-inside mb-3 space-y-1">
+          <li>Paste your JSON into the left panel</li>
+          <li>Click <strong>Prettify</strong> to format it or <strong>Minify</strong> to compress it</li>
+          <li>Use the Data Explorer on the right to navigate and select paths</li>
+        </ol>
+      </section>
     </main>
   );
 }
